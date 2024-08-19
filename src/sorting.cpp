@@ -97,7 +97,8 @@ double sort::MainSetup(int* unsorted, int* correct, int size) {
 	return (double)time.count() / (double)1000000;
 }
 
-void sort::Setup(std::string* name, int* unsorted, int* toSort, int size, int i, int j, bool first, std::vector<std::string>* names) {
+void sort::Setup(std::string* name, int* unsorted, int* toSort, long long size, 
+                 int i, int j, bool first, std::vector<std::string>* names) {
 	CopyArray(unsorted, toSort, size);
 	if (first) {
 		if (j == 1) { names->push_back(*name); }
@@ -272,8 +273,8 @@ double sort::ThreadedSortATimed(int* array, int size, int threads, functionPtr* 
 }
 
 
-// Multi-Threaded w/ Queue
-
+// Multi-Threaded w/ Queue (currently not being used)
+/*
 void sort::Combine2ArrayQ(int* array1, int* array2, int size1, int size2) {
 
 }
@@ -293,3 +294,4 @@ double sort::ThreadedSortQTimed(int* array, int size, int threads, functionPtr* 
 	std::chrono::duration<long long, std::nano> time = end - start;
 	return (double)time.count() / (double)1000000;
 }
+*/

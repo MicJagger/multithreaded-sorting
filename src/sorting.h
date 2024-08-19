@@ -31,7 +31,8 @@ namespace sort {
 
 	// setup
 	double MainSetup(int* unsorted, int* correct, int size);
-	void Setup(std::string* name, int* unsorted, int* toSort, int size, int i, int j, bool first, std::vector<std::string>* names);
+	void Setup(std::string* name, int* unsorted, int* toSort, long long size, 
+               int i, int j, bool first, std::vector<std::string>* names);
 
 	// helper algorithms
 	namespace helper {
@@ -51,9 +52,11 @@ namespace sort {
 	double ThreadedSortATimed(int* array, int size, int threads, functionPtr* func);
 
 	// Multi-Threaded w/ Queue
-	void Combine2ArrayQ(int* array1, int* array2, int size1, int size2);
+    /*
+    void Combine2ArrayQ(int* array1, int* array2, int size1, int size2);
 	void ThreadedSortQ(int* array, int size, int threads, functionPtr* func);
 	double ThreadedSortQTimed(int* array, int size, int threads, functionPtr* func);
+    */
 
 	// Mult-Threaded w/ Swaps
 	//double ThreadedSortSwaps(int* array, int size);
