@@ -1,8 +1,5 @@
 #include "sorting.h"
 
-// some main funcitons
-
-
 namespace cfg {
     // size of the array
     const int size = 1000 * 1000;
@@ -18,7 +15,7 @@ namespace cfg {
     // control group to test validity against
     int* correct = new int[size];
 
-    bool checkSorted = true;
+    bool testValid = true;
     bool writeCSV = true;
 
     bool standard = true;
@@ -33,6 +30,4 @@ int main() {
 
     return 0;
 }
-
-// function definitions
 
