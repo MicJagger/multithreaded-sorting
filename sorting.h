@@ -57,6 +57,4 @@ namespace MJsort {
 	//double ThreadedSortSwaps(int* array, int size);
 }
 
-// C:\All Other Data\School\5 Spring 2024\Data Structures and Algorithm\Project 3\DSA Project 3
-
 #endif 
