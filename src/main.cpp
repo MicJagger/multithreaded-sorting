@@ -25,6 +25,29 @@ namespace cfg {
     bool quick = true;
 }
 
+namespace test {
+
+	// Returns 15-bit random list
+	void RandomList(int* array, int size);
+
+	// copy array 1->2
+	void CopyArray(int* array1, int* array2, int length);
+
+	// test validity
+	bool TestValid(int* array, int* correctArray, int size);
+
+	// setup
+	double MainSetup(int* unsorted, int* correct, int size);
+	void Setup(std::string* name, int* unsorted, int* toSort, long long size, 
+				int i, int j, bool first, std::vector<std::string>* names);
+
+}
+
+
+
+
+// 
+
 int main() {
 
     /*
