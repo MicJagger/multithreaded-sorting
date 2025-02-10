@@ -2,23 +2,31 @@
 #ifndef _SORTING_H
 #define _SORTING_H
 
-typedef void(functionPtr)(int*, long long);
+template<typename T>
+struct func {
+	typedef void(functionPtr)(T*, int);
+};
 
 namespace sort {
 	// algorithms
+
 	// std::sort
-	void StandardSort(int* array, int size);
-	void BubbleSort(int* array, int size);
+	template<typename T>
+	void StandardSort(T* array, int size);
+
+	template<typename T>
+	void BubbleSort(T* array, int size);
+
+	// Multithread a method
+	template<typename T>
+	void MultiSort(func<void>::functionPtr* function, T* array, int size, int threadCount);
 
 	// Timed
-	double SortTimed(functionPtr* func, int* array, int size);
 
-	// Multi-Threaded
-
-	void Combine2Arrays(int* array1, int* array2, int size1, int size2);
-	void ThreadedSort(int* array, int size, int threads, functionPtr* func);
-	double ThreadedSortTimed(int* array, int size, int threads, functionPtr* func);
-
+	template<typename T>
+	double SortTimed(func<void>::functionPtr* function, T* array, int size);
+	template<typename T>
+	double MultiSortTimed(func<void>::functionPtr* function, T* array, int size, int threadCount);
 }
 
 #endif

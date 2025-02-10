@@ -1,8 +1,8 @@
 br:
-	g++ -o program.exe src/*.cpp     && program.exe
+	g++ -o sorting.exe src/*.cpp     && sorting.exe
 br1:
-	g++ -o program.exe src/*.cpp -O1 && program.exe
+	g++ -o sorting.exe src/*.cpp -O1 && sorting.exe
 br2:
-	g++ -o program.exe src/*.cpp -O2 && program.exe
+	g++ -o sorting.exe src/*.cpp -O2 && sorting.exe
 br3:
-	g++ -o program.exe src/*.cpp -O3 && program.exe
+	g++ -o sorting.exe src/*.cpp -O3 && sorting.exe

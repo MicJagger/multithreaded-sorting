@@ -1,4 +1,8 @@
-#include "sorting.h"
+#include "sorting.hpp"
+
+#include <algorithm>
+#include <chrono>
+#include <random>
 
 namespace cfg {
     // size of the array
@@ -23,27 +27,24 @@ namespace cfg {
     bool heap = true;
     bool merge = true;
     bool quick = true;
-}
+};
 
 namespace test {
-
 	// Returns 15-bit random list
 	void RandomList(int* array, int size);
 
 	// copy array 1->2
-	void CopyArray(int* array1, int* array2, int length);
+	template<typename T>
+	void CopyArray(T* array1, T* array2, int length);
 
 	// test validity
-	bool TestValid(int* array, int* correctArray, int size);
+	template<typename T>
+	bool TestValid(T* array, T* correctArray, int size);
 
 	// setup
-	double MainSetup(int* unsorted, int* correct, int size);
-	void Setup(std::string* name, int* unsorted, int* toSort, long long size, 
-				int i, int j, bool first, std::vector<std::string>* names);
-
-}
-
-
+	template<typename T>
+	double MainSetup(T* unsorted, T* correct, int size);
+};
 
 
 // 
@@ -169,3 +170,46 @@ int main() {
     return 0;
 }
 
+
+//
+
+namespace test {
+	void RandomList(int* array, int size) {
+		srand(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+		for (int i = 0; i < size; i++) {
+			array[i] = rand();
+		}
+	}
+
+	template<typename T>
+	void CopyArray(T* array1, T* array2, int size) {
+		for (int i = 0; i < size; i++) {
+			array2[i] = array1[i];
+		}
+	}
+
+	template<typename T>
+	bool TestValid(T* array, T* correctArray, int size) {
+		for (int i = 0; i < size; i++) {
+			if (array[i] != correctArray[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	template<typename T>
+	double MainSetup(T* unsorted, T* correct, int size) {
+		RandomList(unsorted, size);
+		CopyArray(unsorted, correct, size);
+		std::chrono::steady_clock::time_point start;
+		std::chrono::steady_clock::time_point end;
+		start = std::chrono::steady_clock::now();
+	
+		std::sort(correct, correct + size);
+	
+		end = std::chrono::steady_clock::now();
+		std::chrono::duration<long long, std::nano> time = end - start;
+		return (double)time.count() / (double)1000000;
+	}
+};
