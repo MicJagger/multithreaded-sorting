@@ -68,6 +68,26 @@ namespace helper {
 		}
 		delete[] output_temp;
 	}
+
+	// sorting function helpers
+
+	void heapify(int* array, int size, int index) {
+		int largest = index;
+		int left = (2 * index) + 1;
+		int right = left + 1;
+	
+		if (left < size && array[left] > array[largest]) {
+			largest = left;
+		}
+		if (right < size && array[right] > array[largest]) {
+			largest = right;
+		}
+
+		if (largest != index) {
+			std::swap(array[index], array[largest]);
+			heapify(array, size, largest); // Heapify the sub-tree
+		}
+	}
 }
 
 
@@ -97,7 +117,26 @@ namespace sort {
 				break;
 			}
 		}
-		// Credit for this bubble sort goes to GeeksForGeeks @ https://www.geeksforgeeks.org/bubble-sort/
+		// Credit to https://www.geeksforgeeks.org/bubble-sort/
+	}
+
+	void HeapSort(int* array, int size) {
+		for (int i = (size / 2) - 1; i >= 0; i--) {
+			helper::heapify(array, size, i);
+		}
+		for (int i = size - 1; i >= 0; i--) {
+			std::swap(array[0], array[i]);
+			helper::heapify(array, i, 0);
+		}
+		// Credit to https://www.geeksforgeeks.org/heap-sort/
+	}
+
+	void MergeSort(int* array, int size) {
+		
+	}
+
+	void QuickSort(int* array, int size) {
+		
 	}
 
 	// Multithread a method

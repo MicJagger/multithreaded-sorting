@@ -1,4 +1,4 @@
-# sorting-algorithms
+# multithreaded-sorting
 This repository has multiple sorting algorithms, but with a focus on multithreading them to see how well they scale across multiple hardware threads
 
 ## Running the project:

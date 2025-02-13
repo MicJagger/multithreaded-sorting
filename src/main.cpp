@@ -8,7 +8,7 @@
 
 namespace cfg {
     // size of the array
-    const int size = 100 * 1000;
+    const int size = 20 * 1000;
     // number of test "suites" to run
     const int tests = 4;
     // number of threads to run (up to)
@@ -62,7 +62,7 @@ int main() {
 		baseDurations.push_back(Setup(cfg::unsorted, cfg::correct, cfg::size)); // make new list and std::sort, save times
 		std::cout << "Begin Test Suite Number " << i << "\n\n";
 
-		for (int j = 1; j <= cfg::threads; j++) {
+		for (int j = 1; j <= cfg::threads; j *= 2) {
 			// Standard Sort
 			if (cfg::standard) {
 				RunSortTimed(std::string("Standard Sort"), &sort::StandardSort, j, names, durations);
@@ -70,22 +70,22 @@ int main() {
 			
 			// Bubble Sort
 			if (cfg::bubble) {
-				RunSortTimed(std::string("Bubble Sort"), &sort::StandardSort, j, names, durations);
+				RunSortTimed(std::string("Bubble Sort"), &sort::BubbleSort, j, names, durations);
 			}
 
 			// Heap Sort
 			if (cfg::heap) {
-
+				RunSortTimed(std::string("Heap Sort"), &sort::HeapSort, j, names, durations);
 			}
 
 			// Merge Sort
 			if (cfg::merge) {
-
+				RunSortTimed(std::string("Merge Sort"), &sort::MergeSort, j, names, durations);
 			}
 
 			// Quick Sort
 			if (cfg::quick) {
-
+				RunSortTimed(std::string("Quick Sort"), &sort::QuickSort, j, names, durations);
 			}
 
 			// see how many times j runs the first time
@@ -168,12 +168,12 @@ void RunSortTimed(std::string name, functionPtr* function, int threadCount, std:
 	name.append(" w/ " + std::to_string(threadCount) + "t");
 	names.push_back(name);
 	int index;
-	if ((index = TestValid(cfg::toSort, cfg::correct, cfg::size)) == 0) { 
+	if ((index = TestValid(cfg::toSort, cfg::correct, cfg::size)) == -1) { 
 		std::cout << name << " took " << time << " milliseconds" << '\n';
 		durations.push_back(time); 
 	}
 	else {
-		std::cout << "FAILED " << name << " @ " << index << '\n';
+		std::cout << "FAILED " << name << " @ index " << index << '\n';
 		durations.push_back(index);
 	}
 }
@@ -199,7 +199,7 @@ int TestValid(int* array, int* correctArray, int size) {
 			return i;
 		}
 	}
-	return 0;
+	return -1;
 }
 
 //template<typename T>
