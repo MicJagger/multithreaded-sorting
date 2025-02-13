@@ -69,7 +69,7 @@ namespace helper {
 		delete[] output_temp;
 	}
 
-	// sorting function helpers
+	// sorting function helpers (all credit given at main functions)
 
 	void heapify(int* array, int size, int index) {
 		int largest = index;
@@ -85,8 +85,104 @@ namespace helper {
 
 		if (largest != index) {
 			std::swap(array[index], array[largest]);
-			heapify(array, size, largest); // Heapify the sub-tree
+			heapify(array, size, largest);
 		}
+	}
+
+	void merge(int* array, int left, int mid, int right) {
+		int subArrayOne = mid - left + 1;
+		int subArrayTwo = right - mid;
+		
+		int* leftArray = new int[subArrayOne];
+		int* rightArray = new int[subArrayTwo];
+
+		for (int i = 0; i < subArrayOne; i++) {
+			leftArray[i] = array[left + i];
+		}
+		for (int j = 0; j < subArrayTwo; j++) {
+			rightArray[j] = array[mid + 1 + j];
+		}
+		
+		int indexOfSubArrayOne = 0;
+		int indexOfSubArrayTwo = 0;
+		int indexOfMergedArray = left;
+	
+		while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) {
+			if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
+				array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+				indexOfSubArrayOne++;
+			}
+			else {
+				array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+				indexOfSubArrayTwo++;
+			}
+			indexOfMergedArray++;
+		}
+	
+		while (indexOfSubArrayOne < subArrayOne) {
+			array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+			indexOfSubArrayOne++;
+			indexOfMergedArray++;
+		}
+		while (indexOfSubArrayTwo < subArrayTwo) {
+			array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+			indexOfSubArrayTwo++;
+			indexOfMergedArray++;
+		}
+
+		delete[] leftArray;
+		delete[] rightArray;
+	}
+
+	void mergeSorter(int* array, int begin, int end) {
+		if (begin >= end) {
+			return;
+		}
+
+		int mid = begin + (end - begin) / 2;
+
+		mergeSorter(array, begin, mid);
+		mergeSorter(array, mid + 1, end);
+
+		merge(array, begin, mid, end);
+	}
+
+	int partitionArray(int* array, int begin, int end) {
+		int pivotPoint = array[begin];
+		int count = 0;
+	
+		for (int i = begin + 1; i <= end; i++) {
+			if (array[i] <= pivotPoint) {
+				count++;
+			}
+		}
+		
+		int pivotIndex = begin + count;
+		std::swap(array[pivotIndex], array[begin]);
+		
+		while (begin < pivotIndex && end > pivotIndex) {
+			while (array[begin] <= pivotPoint) {
+				begin++;
+			}
+			while (array[end] > pivotPoint) {
+				end--;
+			}
+			if (begin < pivotIndex && end > pivotIndex) {
+				std::swap(array[begin++], array[end--]);
+			}
+		}
+		return pivotIndex;
+	}
+
+	void quickSorter(int* array, int begin, int end) {
+		if (begin >= end) {
+			return;
+		}
+
+		int pivotIndex = partitionArray(array, begin, end);
+	
+		quickSorter(array, begin, pivotIndex - 1);
+		quickSorter(array, pivotIndex + 1, end);
 	}
 }
 
@@ -132,11 +228,13 @@ namespace sort {
 	}
 
 	void MergeSort(int* array, int size) {
-		
+		helper::mergeSorter(array, 0, size - 1);
+		// Credit to https://www.geeksforgeeks.org/merge-sort/
 	}
 
 	void QuickSort(int* array, int size) {
-		
+		helper::quickSorter(array, 0, size - 1);
+		// Credit to https://www.geeksforgeeks.org/quick-sort/?ref=lbp
 	}
 
 	// Multithread a method

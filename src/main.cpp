@@ -8,7 +8,7 @@
 
 namespace cfg {
     // size of the array
-    const int size = 20 * 1000;
+    const int size = 1000 * 1000;
     // number of test "suites" to run
     const int tests = 4;
     // number of threads to run (up to)
@@ -25,7 +25,7 @@ namespace cfg {
     bool writeCSV = true;
 
     bool standard = true;
-    bool bubble = true;
+    bool bubble = false; // if bubble is on, make sure size is small (~500ms for 20k, O(n^2))
     bool heap = true;
     bool merge = true;
     bool quick = true;
